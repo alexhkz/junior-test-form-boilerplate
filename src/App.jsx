@@ -1,4 +1,6 @@
-import { ImageList } from './components';
+import { ImageList } from './components/ImageList/ImageList';
+import { Form } from './components/Form/Form';
+import { Section } from './styles';
 
 function App() {
   return (
@@ -8,6 +10,7 @@ function App() {
       </header>
       <main>
         <section>
+          <Form />
           <ImageList />
         </section>
       </main>
