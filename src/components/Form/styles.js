@@ -5,6 +5,7 @@ export const StyledForm = styled.form`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+  align-self: center;
   max-width: 400px,
   margin: 0px 50px,
 `;
