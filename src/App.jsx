@@ -3,45 +3,32 @@ import { createContext, useState } from 'react';
 import { ImageList } from './components/ImageList/ImageList';
 import { Form } from './components/Form/Form';
 import { Section } from './styles';
+import useAxios from './hooks/useAxios';
 
 export const PhotoContext = createContext();
 
-const Context = (props) => {
-  console.log(props.children);
-
-  const [cards, setCards] = useState([]);
-
-  const addCards = (value) => {
-    setCards([...cards, value]);
-  };
-
-  const newCards = {
-    addCards,
-    cards,
-  };
-
-  return (
-    <PhotoContext.Provider value={newCards}>
-      {props.children}
-    </PhotoContext.Provider>
-  );
-};
-
 function App() {
+  const [searchImage, setSearchImage] = useState('');
+  const { response, isLoading, error, fetchData } = useAxios(
+    'search/photos?page=1&&per_page=5&query=office&client_id=bnaNhON20Sbnx8PG2rRcrMhTNTURZdzW2_PEgU86Un4',
+  );
+
+  const value = {
+    response,
+    isLoading,
+    error,
+    fetchData,
+    searchImage,
+    setSearchImage,
+  };
+
   return (
-    <>
-      <header>
-        <h1>Тестовое задание</h1>
-      </header>
-      <main>
-        <Context>
-          <Section>
-            <Form />
-            <ImageList />
-          </Section>
-        </Context>
-      </main>
-    </>
+    <PhotoContext.Provider value={value}>
+      <Section>
+        <Form />
+        <ImageList />
+      </Section>
+    </PhotoContext.Provider>
   );
 }
 
